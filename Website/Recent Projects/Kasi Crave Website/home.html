@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kasi Crave Kota — Stacked With Flavour</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'mb': '#121212',
+            'orange': '#F97316',
+            'cream': '#FFF4E6',
+            'charcoal': '#1F1F1F',
+            'yellow': '#FDBA12',
+            'red': '#DC2626',
+          },
+          fontFamily: {
+            'anton': ['Anton', 'sans-serif'],
+            'poppins': ['Poppins', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --orange: #F97316;
+      --yellow: #FDBA12;
+      --red: #DC2626;
+      --cream: #FFF4E6;
+      --mb: #121212;
+      --charcoal: #1F1F1F;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--mb);
+      color: var(--cream);
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(18,18,18,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(249,115,22,0.15);
+      transition: background 0.3s;
+    }
+    .logo { font-family: 'Anton', sans-serif; font-size: 1.5rem; color: var(--orange); letter-spacing: 1px; }
+    .logo span { color: var(--yellow); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a {
+      font-size: .85rem; font-weight: 600; color: var(--cream); text-transform: uppercase;
+      letter-spacing: 1px; text-decoration: none; position: relative; transition: color .3s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: var(--orange); transition: width .3s;
+    }
+    .nav-links a:hover { color: var(--orange); }
+    .nav-links a:hover::after { width: 100%; }
+    .btn-order {
+      background: var(--orange); color: #fff; font-weight: 700; font-size: .85rem;
+      padding: .5rem 1.4rem; border-radius: 999px; border: none; cursor: pointer;
+      text-decoration: none; letter-spacing: .5px;
+      box-shadow: 0 0 18px rgba(249,115,22,0.5);
+      transition: background .3s, box-shadow .3s, transform .15s;
+    }
+    .btn-order:hover { background: var(--red); box-shadow: 0 0 28px rgba(220,38,38,0.6); transform: scale(1.04); }
+
+    /* hamburger */
+    #hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    #hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); border-radius: 2px; transition: all .3s; }
+    #mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(18,18,18,0.98); z-index: 99; flex-direction: column;
+      align-items: center; justify-content: center; gap: 2rem;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a { font-family: 'Anton', sans-serif; font-size: 2.5rem; color: var(--cream); text-decoration: none; letter-spacing: 2px; transition: color .2s; }
+    #mobile-menu a:hover { color: var(--orange); }
+    #mobile-close { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: var(--cream); font-size: 2rem; cursor: pointer; }
+
+    @media (max-width: 768px) {
+      .nav-links, .btn-order { display: none; }
+      #hamburger { display: flex; }
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      background: var(--mb);
+    }
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+
+      background-image: url('./img/Kasi-Crave-Background-Image.png');
+
+      background-size: cover;
+      background-position: center;
+      opacity: .18;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(18,18,18,0.97) 0%, rgba(31,31,31,0.85) 50%, rgba(249,115,22,0.08) 100%);
+    }
+    /* grit noise */
+    .hero-noise {
+      position: absolute; inset: 0; opacity: .04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+    /* animated orange orb glow */
+    .hero-orb {
+      position: absolute; width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(249,115,22,0.18) 0%, transparent 70%);
+      top: -100px; right: -200px;
+      animation: orbPulse 6s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes orbPulse {
+      0% { transform: scale(1); opacity: .7; }
+      100% { transform: scale(1.15); opacity: 1; }
+    }
+    /* floating particles */
+    .particle {
+      position: absolute; border-radius: 50%;
+      background: var(--orange); opacity: .12;
+      animation: particleDrift linear infinite;
+      pointer-events: none;
+    }
+    @keyframes particleDrift {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: .15; }
+      90% { opacity: .1; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+
+    .hero-content {
+      position: relative; z-index: 10;
+      max-width: 900px; margin: 0 auto; padding: 0 2rem;
+      padding-top: 6rem;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,0.3);
+      padding: .3rem .9rem; border-radius: 999px;
+      font-size: .75rem; font-weight: 600; letter-spacing: 2px; color: var(--orange);
+      text-transform: uppercase; margin-bottom: 1.5rem;
+      animation: fadeUp .8s ease both;
+    }
+    .hero-tag::before { content: '●'; font-size: .5rem; animation: blink 1.5s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .hero-h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(4rem, 12vw, 9rem);
+      line-height: .92; letter-spacing: -1px;
+      color: var(--cream);
+      animation: fadeUp .9s .1s ease both;
+    }
+    .hero-h1 .orange { color: var(--orange); }
+    .hero-h1 .stroke {
+      -webkit-text-stroke: 2px var(--orange);
+      color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,244,230,.7); max-width: 480px;
+      margin-top: 1.2rem; line-height: 1.7;
+      animation: fadeUp .9s .2s ease both;
+    }
+    .hero-ctas {
+      display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2.5rem;
+      animation: fadeUp .9s .3s ease both;
+    }
+    .cta-primary {
+      background: var(--orange); color: #fff; font-weight: 700; font-size: 1rem;
+      padding: .85rem 2.5rem; border-radius: 999px; border: none; cursor: pointer;
+      text-decoration: none; letter-spacing: .5px;
+      box-shadow: 0 0 30px rgba(249,115,22,0.5), 0 4px 20px rgba(0,0,0,.5);
+      transition: all .3s;
+    }
+    .cta-primary:hover { background: var(--red); box-shadow: 0 0 40px rgba(220,38,38,.7); transform: translateY(-2px); }
+    .cta-secondary {
+      background: transparent; color: var(--orange); font-weight: 700; font-size: 1rem;
+      padding: .85rem 2.5rem; border-radius: 999px; border: 2px solid var(--orange);
+      cursor: pointer; text-decoration: none; letter-spacing: .5px;
+      transition: all .3s;
+    }
+    .cta-secondary:hover { background: rgba(249,115,22,.1); transform: translateY(-2px); }
+
+    .hero-food-image {
+      position: absolute; right: -40px; bottom: 0; z-index: 5;
+      width: clamp(280px, 45vw, 640px);
+      animation: heroImgFloat 6s ease-in-out infinite alternate;
+      filter: drop-shadow(-20px 0 60px rgba(249,115,22,0.3));
+    }
+    @keyframes heroImgFloat { 0%{transform:translateY(0)} 100%{transform:translateY(-18px)} }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 3.5rem;
+      animation: fadeUp .9s .4s ease both;
+    }
+    .stat { border-left: 2px solid var(--orange); padding-left: 1rem; }
+    .stat-num { font-family: 'Anton', sans-serif; font-size: 2rem; color: var(--orange); line-height: 1; }
+    .stat-label { font-size: .75rem; color: rgba(255,244,230,.6); text-transform: uppercase; letter-spacing: 1px; margin-top: .2rem; }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      z-index: 10; display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      color: rgba(255,244,230,.4); font-size: .7rem; letter-spacing: 2px; text-transform: uppercase;
+      animation: fadeUp 1s .8s ease both;
+    }
+    .scroll-hint .arrow { width: 20px; height: 20px; border-right: 2px solid var(--orange); border-bottom: 2px solid var(--orange); transform: rotate(45deg); animation: scrollBounce 1.5s infinite; }
+    @keyframes scrollBounce { 0%,100%{transform:translateY(0) rotate(45deg)} 50%{transform:translateY(6px) rotate(45deg)} }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── MARQUEE TICKER ── */
+    .ticker {
+      background: var(--orange); color: var(--mb);
+      padding: .65rem 0; overflow: hidden; white-space: nowrap;
+    }
+    .ticker-track {
+      display: inline-flex; gap: 0;
+      animation: tickerScroll 25s linear infinite;
+    }
+    .ticker-item {
+      font-family: 'Anton', sans-serif; font-size: 1rem; letter-spacing: 2px;
+      padding: 0 2rem;
+    }
+    .ticker-dot { color: var(--mb); opacity: .5; }
+    @keyframes tickerScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 6rem 2rem; }
+    .section-label {
+      display: inline-block;
+      font-size: .72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--orange); margin-bottom: .75rem;
+    }
+    .section-label::before { content: '// '; }
+    .section-h2 {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1; color: var(--cream);
+    }
+    .section-h2 .hi { color: var(--orange); }
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--orange) 40%, transparent); margin: 0; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--charcoal); position: relative; overflow: hidden; }
+    #about::before {
+      content: 'KOTA';
+      position: absolute; right: -40px; top: -20px;
+      font-family: 'Anton', sans-serif; font-size: 18rem; line-height: 1;
+      color: rgba(249,115,22,0.04); pointer-events: none; user-select: none;
+    }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; max-width: 1200px; margin: 0 auto; }
+    @media(max-width:900px){ .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
+    .about-image-block { position: relative; }
+    .about-img-main {
+      width: 100%; border-radius: 1rem;
+      object-fit: cover; height: 480px;
+      filter: brightness(.85) saturate(1.2);
+      box-shadow: 0 0 60px rgba(249,115,22,0.15);
+    }
+    .about-img-overlay {
+      position: absolute; bottom: -20px; right: -20px;
+      width: 200px; height: 200px; border-radius: .75rem;
+      object-fit: cover;
+      border: 3px solid var(--orange);
+      box-shadow: 0 0 30px rgba(249,115,22,0.3);
+    }
+    .about-badge {
+      position: absolute; top: 20px; left: 20px;
+      background: var(--orange); color: var(--mb);
+      font-family: 'Anton', sans-serif; font-size: 1.1rem;
+      padding: .4rem 1rem; border-radius: .5rem; transform: rotate(-3deg);
+    }
+    .about-text p { color: rgba(255,244,230,.75); line-height: 1.8; font-size: 1rem; margin-bottom: 1.2rem; }
+    .about-pills { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+    .pill {
+      background: rgba(249,115,22,0.1); border: 1px solid rgba(249,115,22,0.3);
+      color: var(--orange); padding: .4rem 1.1rem; border-radius: 999px;
+      font-size: .8rem; font-weight: 600; letter-spacing: .5px;
+    }
+    .about-stats { display: flex; gap: 2rem; margin-top: 2.5rem; }
+    .astat {
+      text-align: center; background: rgba(18,18,18,.8);
+      border: 1px solid rgba(249,115,22,0.2); border-radius: .75rem;
+      padding: 1.2rem 1.5rem;
+      box-shadow: 0 0 20px rgba(249,115,22,0.08);
+    }
+    .astat-num { font-family: 'Anton', sans-serif; font-size: 2.2rem; color: var(--orange); }
+    .astat-label { font-size: .72rem; color: rgba(255,244,230,.5); text-transform: uppercase; letter-spacing: 1px; margin-top: .2rem; }
+
+    /* ── MENU ── */
+    #menu { background: var(--mb); }
+    .menu-header { text-align: center; max-width: 700px; margin: 0 auto 4rem; }
+    .menu-header p { color: rgba(255,244,230,.65); margin-top: 1rem; font-size: 1.05rem; }
+    .menu-tabs { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
+    .tab {
+      background: transparent; border: 1px solid rgba(249,115,22,.3);
+      color: rgba(255,244,230,.6); padding: .45rem 1.4rem; border-radius: 999px;
+      font-size: .82rem; font-weight: 600; cursor: pointer; letter-spacing: .5px;
+      transition: all .25s;
+    }
+    .tab.active, .tab:hover { background: var(--orange); color: #fff; border-color: var(--orange); box-shadow: 0 0 16px rgba(249,115,22,.4); }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+
+    .menu-card {
+      background: var(--charcoal);
+      border-radius: 1rem; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform .3s, box-shadow .3s;
+      position: relative;
+    }
+    .menu-card::after {
+      content: ''; position: absolute; inset: 0; border-radius: 1rem;
+      box-shadow: inset 0 0 0 0 rgba(249,115,22,0);
+      transition: box-shadow .35s;
+      pointer-events: none;
+    }
+    .menu-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,.5), 0 0 30px rgba(249,115,22,.2); }
+    .menu-card:hover::after { box-shadow: inset 0 0 0 2px rgba(249,115,22,.4); }
+
+    .menu-img {
+      width: 100%; height: 220px; object-fit: cover;
+      transition: transform .4s; display: block;
+    }
+    .menu-card:hover .menu-img { transform: scale(1.04); }
+    .menu-img-wrap { overflow: hidden; position: relative; }
+    .menu-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: var(--orange); color: #fff;
+      font-family: 'Anton', sans-serif; font-size: .9rem;
+      padding: .2rem .75rem; border-radius: 999px;
+      box-shadow: 0 0 12px rgba(249,115,22,.5);
+    }
+    .hot-badge { background: var(--red); }
+    .menu-body { padding: 1.5rem; }
+    .menu-name { font-family: 'Anton', sans-serif; font-size: 1.5rem; color: var(--cream); margin-bottom: .25rem; }
+    .menu-desc { font-size: .82rem; color: rgba(255,244,230,.55); line-height: 1.6; margin-bottom: 1.2rem; }
+    .menu-footer { display: flex; align-items: center; justify-content: space-between; }
+    .menu-price { font-family: 'Anton', sans-serif; font-size: 1.8rem; color: var(--orange); }
+    .menu-btn {
+      background: rgba(249,115,22,0.12); border: 1px solid rgba(249,115,22,.35);
+      color: var(--orange); font-weight: 700; font-size: .82rem;
+      padding: .55rem 1.3rem; border-radius: 999px; cursor: pointer;
+      transition: all .25s; letter-spacing: .5px;
+    }
+    .menu-btn:hover { background: var(--orange); color: #fff; box-shadow: 0 0 18px rgba(249,115,22,.5); }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: linear-gradient(to bottom, var(--charcoal), var(--mb)); position: relative; overflow: hidden; }
+    #experience::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(249,115,22,0.02) 40px,
+        rgba(249,115,22,0.02) 41px
+      );
+    }
+    .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; max-width: 1200px; margin: 3rem auto 0; align-items: center; }
+    @media(max-width:900px){ .exp-grid { grid-template-columns: 1fr; } }
+    .exp-images { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .exp-img { border-radius: .75rem; object-fit: cover; width: 100%; height: 220px; filter: brightness(.8) saturate(1.2); transition: all .4s; }
+    .exp-img:hover { filter: brightness(1) saturate(1.4); transform: scale(1.02); }
+    .exp-img.tall { height: 460px; grid-row: span 2; }
+    .exp-right h3 { font-family: 'Anton', sans-serif; font-size: 2.5rem; color: var(--cream); margin-bottom: 1.2rem; }
+    .exp-right h3 span { color: var(--orange); }
+    .exp-right p { color: rgba(255,244,230,.65); line-height: 1.8; margin-bottom: 2rem; }
+    .vibe-list { display: flex; flex-direction: column; gap: 1rem; }
+    .vibe-item { display: flex; align-items: flex-start; gap: 1rem; }
+    .vibe-icon {
+      width: 44px; height: 44px; border-radius: .5rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 0 16px rgba(249,115,22,.2);
+    }
+    .vibe-icon.o { background: rgba(249,115,22,.15); border: 1px solid rgba(249,115,22,.3); }
+    .vibe-icon.r { background: rgba(220,38,38,.15); border: 1px solid rgba(220,38,38,.3); }
+    .vibe-icon.y { background: rgba(253,186,18,.15); border: 1px solid rgba(253,186,18,.3); }
+    .vibe-text h4 { font-weight: 700; color: var(--cream); font-size: .95rem; margin-bottom: .2rem; }
+    .vibe-text p { font-size: .82rem; color: rgba(255,244,230,.55); line-height: 1.5; }
+
+    /* ── DELIVERY ── */
+    #delivery {
+      background: var(--mb);
+      position: relative; overflow: hidden;
+    }
+    #delivery::after {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, var(--orange), var(--yellow), var(--orange), transparent);
+    }
+    .delivery-inner { max-width: 1100px; margin: 0 auto; }
+    .delivery-top { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 4rem; }
+    @media(max-width:800px){ .delivery-top { grid-template-columns: 1fr; } }
+    .delivery-text h2 { font-family: 'Anton', sans-serif; font-size: clamp(2.5rem,5vw,4rem); color: var(--cream); line-height: 1.05; margin-bottom: 1rem; }
+    .delivery-text h2 em { color: var(--orange); font-style: normal; }
+    .delivery-text p { color: rgba(255,244,230,.65); line-height: 1.8; }
+    .delivery-phone {
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .delivery-phone img { width: 240px; filter: drop-shadow(0 0 40px rgba(249,115,22,.35)); animation: heroImgFloat 4s ease-in-out infinite alternate; }
+    .delivery-glow {
+      position: absolute; width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(249,115,22,.15), transparent 70%);
+      pointer-events: none;
+    }
+    .platform-cards { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .platform-card {
+      flex: 1; min-width: 160px;
+      background: var(--charcoal); border: 1px solid rgba(255,255,255,.07);
+      border-radius: 1rem; padding: 1.8rem 1.5rem; text-align: center;
+      transition: all .3s;
+      cursor: pointer;
+    }
+    .platform-card:hover { border-color: var(--orange); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(249,115,22,.15); }
+    .platform-logo { font-family: 'Anton', sans-serif; font-size: 1.8rem; margin-bottom: .5rem; }
+    .platform-logo.uber { color: #06c167; }
+    .platform-logo.bolt { color: #34d399; }
+    .platform-logo.mrd { color: var(--yellow); }
+    .platform-sub { font-size: .78rem; color: rgba(255,244,230,.45); }
+    .platform-link {
+      display: inline-block; margin-top: 1rem; font-size: .78rem; font-weight: 700;
+      color: var(--orange); text-decoration: none; letter-spacing: .5px;
+      transition: color .2s;
+    }
+    .platform-link:hover { color: var(--yellow); }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--charcoal); }
+    .testimonials-header { text-align: center; margin-bottom: 4rem; }
+    .testimonials-header p { color: rgba(255,244,230,.6); margin-top: .75rem; }
+    .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; max-width: 1100px; margin: 0 auto; }
+    .t-card {
+      background: linear-gradient(145deg, rgba(31,31,31,1), rgba(18,18,18,.9));
+      border: 1px solid rgba(255,255,255,.05); border-radius: 1rem;
+      padding: 2rem; position: relative; overflow: hidden;
+      transition: transform .3s, border-color .3s;
+    }
+    .t-card:hover { transform: translateY(-4px); border-color: rgba(249,115,22,.3); }
+    .t-card::before { content: '"'; position: absolute; top: -.5rem; left: 1rem; font-family: 'Anton', sans-serif; font-size: 8rem; color: rgba(249,115,22,.06); line-height: 1; pointer-events: none; }
+    .t-stars { color: var(--yellow); font-size: .9rem; margin-bottom: 1rem; letter-spacing: 2px; }
+    .t-text { color: rgba(255,244,230,.8); font-size: .92rem; line-height: 1.75; margin-bottom: 1.5rem; font-style: italic; }
+    .t-user { display: flex; align-items: center; gap: .9rem; }
+    .t-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: .9rem; color: var(--mb);
+      flex-shrink: 0;
+    }
+    .t-name { font-weight: 700; font-size: .9rem; }
+    .t-loc { font-size: .75rem; color: rgba(255,244,230,.4); margin-top: .1rem; }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--mb); }
+    .gallery-header { text-align: center; margin-bottom: 3rem; }
+    .gallery-header p { color: rgba(255,244,230,.6); margin-top: .5rem; font-size: .9rem; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 200px);
+      gap: 1rem; max-width: 1200px; margin: 0 auto;
+    }
+    @media(max-width:768px){ .gallery-grid { grid-template-columns: repeat(2,1fr); grid-template-rows: repeat(6, 160px); } }
+    .g-item { border-radius: .75rem; overflow: hidden; position: relative; cursor: pointer; }
+    .g-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .g-item:nth-child(5) { grid-column: span 2; }
+    .g-img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; display: block; }
+    .g-item:hover .g-img { transform: scale(1.07); }
+    .g-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(18,18,18,.8) 0%, transparent 60%);
+      opacity: 0; transition: opacity .3s;
+      display: flex; align-items: flex-end; padding: 1rem;
+    }
+    .g-item:hover .g-overlay { opacity: 1; }
+    .g-tag { font-size: .75rem; font-weight: 700; color: var(--cream); letter-spacing: 1px; text-transform: uppercase; }
+    .ig-follow {
+      text-align: center; margin-top: 2.5rem;
+      font-size: .95rem; color: rgba(255,244,230,.6);
+    }
+    .ig-follow a { color: var(--orange); font-weight: 700; text-decoration: none; transition: color .2s; }
+    .ig-follow a:hover { color: var(--yellow); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0d0d0d; padding: 4rem 2rem 2rem;
+      border-top: 1px solid rgba(249,115,22,.15);
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; max-width: 1200px; margin: 0 auto 3rem; }
+    @media(max-width:900px){ .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:540px){ .footer-grid { grid-template-columns: 1fr; } }
+    .footer-logo { font-family: 'Anton', sans-serif; font-size: 1.8rem; color: var(--orange); margin-bottom: .5rem; }
+    .footer-slogan { font-size: .8rem; color: rgba(255,244,230,.4); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1rem; }
+    .footer-about { font-size: .85rem; color: rgba(255,244,230,.5); line-height: 1.7; max-width: 300px; margin-bottom: 1.5rem; }
+    .social-row { display: flex; gap: .75rem; }
+    .social-btn {
+      width: 38px; height: 38px; border-radius: .5rem;
+      background: rgba(249,115,22,.1); border: 1px solid rgba(249,115,22,.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange); font-size: 1rem; text-decoration: none;
+      transition: all .25s;
+    }
+    .social-btn:hover { background: var(--orange); color: #fff; box-shadow: 0 0 14px rgba(249,115,22,.5); }
+    .footer-h { font-weight: 700; font-size: .85rem; color: var(--orange); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    .footer-links li a { font-size: .85rem; color: rgba(255,244,230,.5); text-decoration: none; transition: color .2s; }
+    .footer-links li a:hover { color: var(--orange); }
+    .footer-info { display: flex; flex-direction: column; gap: .6rem; }
+    .footer-info span { font-size: .83rem; color: rgba(255,244,230,.5); display: flex; align-items: flex-start; gap: .5rem; line-height: 1.5; }
+    .footer-info span::before { content: '▸'; color: var(--orange); flex-shrink: 0; }
+    .hours-row { display: flex; justify-content: space-between; font-size: .83rem; color: rgba(255,244,230,.5); }
+    .hours-row span:last-child { color: var(--orange); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      border-top: 1px solid rgba(249,115,22,.1); padding-top: 1.5rem;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: gap;
+      font-size: .78rem; color: rgba(255,244,230,.3);
+    }
+    .footer-bottom span { color: var(--orange); }
+
+    /* ── REVEAL ANIMATION ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── CART TOAST ── */
+    #toast {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+      background: var(--orange); color: #fff; font-weight: 700;
+      padding: .85rem 1.5rem; border-radius: .75rem;
+      box-shadow: 0 0 30px rgba(249,115,22,.5);
+      transform: translateY(100px); opacity: 0;
+      transition: all .4s; pointer-events: none;
+      font-size: .9rem;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ── RESPONSIVE HELPERS ── */
+    @media(max-width:768px) {
+      .hero-food-image { display: none; }
+      .hero-content { text-align: center; }
+      .hero-stats { justify-content: center; }
+      .hero-ctas { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu">
+  <button id="mobile-close">✕</button>
+  <a href="#home" onclick="closeMobile()">Home</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#menu" onclick="closeMobile()">Menu</a>
+  <a href="#experience" onclick="closeMobile()">Experience</a>
+  <a href="#delivery" onclick="closeMobile()">Delivery</a>
+  <a href="#gallery" onclick="closeMobile()">Gallery</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- NAV -->
+<!-- NAV -->
+<nav id="navbar">
+    <div class="logo"> <img
+      src="img/Kasi Crave Logo.png"
+      alt="Kasi Crave Kota Logo"
+      style="width: 40px; height: 40px; border-radius: 3px; object-fit: cover; flex-shrink: 0;"
+    />
+    </div>
+  <div class="logo">KASI<span>CRAVE</span> KOTA</div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#experience">Experience</a>
+    <a href="#delivery">Delivery</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#menu" class="btn-order">Order Now</a>
+  <div id="hamburger" onclick="openMobile()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" style="position:relative; min-height:100vh; display:flex; align-items:center; overflow:hidden; padding-top:80px;">
+  <div class="hero-bg-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-orb"></div>
+
+  <!-- Particles -->
+  <div class="particle" style="width:8px;height:8px;left:12%;animation-duration:18s;animation-delay:0s;"></div>
+  <div class="particle" style="width:5px;height:5px;left:28%;animation-duration:22s;animation-delay:3s;"></div>
+  <div class="particle" style="width:6px;height:6px;left:55%;animation-duration:16s;animation-delay:1s;"></div>
+  <div class="particle" style="width:10px;height:10px;left:72%;animation-duration:20s;animation-delay:5s;"></div>
+  <div class="particle" style="width:4px;height:4px;left:88%;animation-duration:14s;animation-delay:2s;"></div>
+
+  <!-- Logo image (right side) -->
+  <img class="hero-food-image"
+    src="img\Kasi Crave Logo.png"
+    alt="Kasi Crave Kota Logo"
+    onerror="this.style.display='none'" />
+
+  <div class="hero-content" style="width:100%;">
+    <div class="hero-tag">🔥 Vosloorus's #1 Street Kitchen</div>
+    <h1 class="hero-h1">
+      <span class="block">STACKED</span>
+      <span class="block orange">WITH</span>
+      <span class="block stroke">FLAVOUR</span>
+    </h1>
+    <p class="hero-sub">Premium kasi street food made for real flavour lovers. Authentic township taste, elevated for the modern streets.</p>
+    <div class="hero-ctas">
+      <a href="#menu" class="cta-primary">🛒 Order Now</a>
+      <a href="#menu" class="cta-secondary">View Menu →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Menu Items</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Open Daily</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Rated by Vosloorus</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="ticker">
+    <span class="ticker-item">THE OG KOTA</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">STACKED WITH FLAVOUR</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">KASI CRAVE KOTA</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">BRAAI MASTER</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">FIRE STARTER</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">VOSLOO STREET FOOD</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">LOADED FRIES</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">AUTHENTIC KASI FLAVOUR</span><span class="ticker-dot"> ● </span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">THE OG KOTA</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">STACKED WITH FLAVOUR</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">KASI CRAVE KOTA</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">BRAAI MASTER</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">FIRE STARTER</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">VOSLOO STREET FOOD</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">LOADED FRIES</span><span class="ticker-dot"> ● </span>
+    <span class="ticker-item">AUTHENTIC KASI FLAVOUR</span><span class="ticker-dot"> ● </span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid reveal">
+    <div class="about-image-block">
+      <img class="about-img-main"
+        src="img\Kasi Crave Kota Restaurant Outdoor Image.png"
+        alt="Kasi Crave Kota Exterior"
+        onerror="this.style.background:'#1F1F1F'" />
+      <img class="about-img-overlay"
+        src="img\Kota on plate.png"
+        alt="Kota Close Up"
+        onerror="this.style.display='none'" />
+      <div class="about-badge">EST. 2024 🏆</div>
+    </div>
+    <div class="about-text">
+      <span class="section-label">Our Story</span>
+      <h2 class="section-h2" style="margin-bottom:1.5rem;">Born From The <span class="hi">Kasi</span> Streets</h2>
+      <p>Kasi Crave Kota brings authentic Kasi flavour into a modern street-food experience. Born in the vibrant, electric streets of Vosloorus, we turned the beloved kota into a premium brand that honours its roots while levelling up the experience.</p>
+      <p>We don't do ordinary. Every kota is built with intention — layered, loaded, and made for those who demand real flavour. From the bread to the filling, from the vibes to the neon lights, everything is deliberate.</p>
+      <div class="about-pills">
+        <span class="pill">🌶 Authentic Recipes</span>
+        <span class="pill">🏙 Kasi Culture</span>
+        <span class="pill">🎵 Amapiano Vibes</span>
+        <span class="pill">🔥 Premium Quality</span>
+      </div>
+      <div class="about-stats">
+        <div class="astat"><div class="astat-num">5+</div><div class="astat-label">Locations</div></div>
+        <div class="astat"><div class="astat-num">100+</div><div class="astat-label">Daily Orders</div></div>
+        <div class="astat"><div class="astat-num">4.9★</div><div class="astat-label">Avg Rating</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="menu-header reveal">
+    <span class="section-label">What We Serve</span>
+    <h2 class="section-h2">Signature <span class="hi">Menu</span></h2>
+    <p>Bold flavours, premium ingredients, and that authentic kasi taste you crave.</p>
+  </div>
+  <div class="menu-tabs reveal">
+    <button class="tab active">All Items</button>
+    <button class="tab">Kotas</button>
+    <button class="tab">Loaded Fries</button>
+    <button class="tab">Wings</button>
+  </div>
+  <div class="menu-grid reveal">
+
+    <!-- OG Kota -->
+    <div class="menu-card">
+      <div class="menu-img-wrap">
+        <img class="menu-img"
+          src="img\The OG Kota.png"
+          alt="The OG Kota" />
+        <span class="menu-badge">CLASSIC</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">The OG Kota</div>
+        <div class="menu-desc">Polony · Chips · Cheese · Egg · Russian · Atchar</div>
+        <div class="menu-footer">
+          <div class="menu-price">R35</div>
+          <button class="menu-btn" onclick="addToCart('The OG Kota')">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fire Starter -->
+    <div class="menu-card">
+      <div class="menu-img-wrap">
+        <img class="menu-img"
+          src="img\The Fire Starter.png"
+          alt="The Fire Starter" />
+        <span class="menu-badge hot-badge">🔥 HOT</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">The Fire Starter</div>
+        <div class="menu-desc">Spicy Chicken Strips · Jalapeños · Peri Mayo · Chips</div>
+        <div class="menu-footer">
+          <div class="menu-price">R55</div>
+          <button class="menu-btn" onclick="addToCart('The Fire Starter')">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Braai Master -->
+    <div class="menu-card">
+      <div class="menu-img-wrap">
+        <img class="menu-img"
+          src="img\The Braai Master.png"
+          alt="The Braai Master" />
+        <span class="menu-badge" style="background:var(--yellow);color:var(--mb);">⭐ PREMIUM</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">The Braai Master</div>
+        <div class="menu-desc">Steak Strips · Wors · Caramelized Onions · BBQ Sauce</div>
+        <div class="menu-footer">
+          <div class="menu-price">R75</div>
+          <button class="menu-btn" onclick="addToCart('The Braai Master')">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Russian Loaded Fries -->
+    <div class="menu-card">
+      <div class="menu-img-wrap">
+        <img class="menu-img"
+          src="img\Russian Loaded Fries.png"
+          alt="Russian Loaded Fries" />
+        <span class="menu-badge">LOADED</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Russian Loaded Fries</div>
+        <div class="menu-desc">Crispy Fries · Sliced Russian · Cheese Sauce · Atchar</div>
+        <div class="menu-footer">
+          <div class="menu-price">R35</div>
+          <button class="menu-btn" onclick="addToCart('Russian Loaded Fries')">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Steak & Cheese Fries -->
+    <div class="menu-card">
+      <div class="menu-img-wrap">
+        <img class="menu-img"
+          src="img\Steak & Cheese Fries.png"
+          alt="Steak & Cheese Fries" />
+        <span class="menu-badge" style="background:var(--yellow);color:var(--mb);">🧀 CHEESY</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Steak & Cheese Fries</div>
+        <div class="menu-desc">Steak Strips · Melted Cheese · Caramelized Onions · Crispy Fries</div>
+        <div class="menu-footer">
+          <div class="menu-price">R55</div>
+          <button class="menu-btn" onclick="addToCart('Steak & Cheese Fries')">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wings -->
+    <div class="menu-card">
+      <div class="menu-img-wrap">
+        <img class="menu-img"
+          src="img\Wings.png"
+          alt="Wings" />
+        <span class="menu-badge hot-badge">🔥 CRISPY</span>
+      </div>
+      <div class="menu-body">
+        <div class="menu-name">Wings</div>
+        <div class="menu-desc">Crispy Wings (100g) · Peri-Peri · BBQ · Sweet Chilli</div>
+        <div class="menu-footer">
+          <div class="menu-price">R35</div>
+          <button class="menu-btn" onclick="addToCart('Wings')">+ Add</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="reveal" style="text-align:center;margin-bottom:1rem;">
+      <span class="section-label">The Vibe</span>
+      <h2 class="section-h2">More Than <span class="hi">Food.</span> It's A Feeling.</h2>
+    </div>
+    <div class="exp-grid reveal">
+      <div class="exp-images">
+        <img class="exp-img tall"
+          src="img\Kasi Crave Kota Restaurant Interior Image.png"
+          alt="Kasi Crave Kota Interior" />
+        <img class="exp-img"
+          src="img\Kasi Crave Kota Restaurant Outdoor Image.png"
+          alt="Kasi Crave Kota Exterior" />
+        <img class="exp-img"
+          src="img\Kota on plate.png"
+          alt="Food prep" />
+      </div>
+      <div class="exp-right">
+        <h3>Where <span>Kasi Culture</span> Meets Premium Eats</h3>
+        <p>Step inside and feel the energy. Neon lights, amapiano pulsing through the speakers, friends laughing over loaded kotas — this is what Kasi Crave is about.</p>
+        <div class="vibe-list">
+          <div class="vibe-item">
+            <div class="vibe-icon o">💡</div>
+            <div class="vibe-text">
+              <h4>Neon Nights</h4>
+              <p>Authentic kasi glow with amapiano beats that keep the energy alive until the early hours.</p>
+            </div>
+          </div>
+          <div class="vibe-item">
+            <div class="vibe-icon r">🔥</div>
+            <div class="vibe-text">
+              <h4>Live Grill Kitchen</h4>
+              <p>Watch your food being prepared fresh on our open grill. No shortcuts. Just real flame and real flavour.</p>
+            </div>
+          </div>
+          <div class="vibe-item">
+            <div class="vibe-icon y">🏙</div>
+            <div class="vibe-text">
+              <h4>Community Hub</h4>
+              <p>More than a restaurant — a gathering spot. Where Vosloo eats, links up, and celebrates.</p>
+            </div>
+          </div>
+          <div class="vibe-item">
+            <div class="vibe-icon o">⏰</div>
+            <div class="vibe-text">
+              <h4>Open 24/7</h4>
+              <p>Late-night cravings? We never close. The kitchen stays fired up for real ones.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DELIVERY -->
+<section id="delivery">
+  <div class="delivery-inner">
+    <div class="reveal" style="text-align:center;margin-bottom:3rem;">
+      <span class="section-label">Delivery</span>
+      <h2 class="section-h2" style="font-size:clamp(2.5rem,6vw,4.5rem);">Delivered <span class="hi">Hot.</span><br>Delivered <span class="hi">Fast.</span></h2>
+      <p style="color:rgba(255,244,230,.6);margin-top:.75rem;">Your kasi craving is one tap away.</p>
+    </div>
+    <div class="delivery-top reveal">
+      <div class="delivery-text">
+        <p style="color:rgba(255,244,230,.7);line-height:1.9;margin-bottom:1.5rem;">Whether you're home after a long day, chilling with friends, or it's 2am and the hunger hits — Kasi Crave delivers. Order through your favourite platform and get real kasi flavour at your door, still hot, still fresh.</p>
+        <p style="color:rgba(255,244,230,.7);line-height:1.9;">We partner with Vosloo's top delivery services to make sure your kota arrives exactly how we made it — stacked and perfect.</p>
+      </div>
+      <div class="delivery-phone">
+        <div class="delivery-glow"></div>
+        <img src="img\Mobile ordering.jpg"
+          alt="Mobile ordering"
+          style="width:260px;border-radius:1.5rem;border:2px solid rgba(249,115,22,.3);box-shadow:0 0 50px rgba(249,115,22,.2);"
+          onerror="this.style.display='none'" />
+      </div>
+    </div>
+    <div class="platform-cards reveal">
+      <div class="platform-card">
+        <div class="platform-logo uber">Uber</div>
+        <div class="platform-logo uber" style="font-size:1.2rem;">Eats</div>
+        <div class="platform-sub">Delivered in 25–35 min</div>
+        <a href="#" class="platform-link">Order Now →</a>
+      </div>
+      <div class="platform-card">
+        <div class="platform-logo bolt">Bolt</div>
+        <div class="platform-logo bolt" style="font-size:1.2rem;">Food</div>
+        <div class="platform-sub">Delivered in 20–30 min</div>
+        <a href="#" class="platform-link">Order Now →</a>
+      </div>
+      <div class="platform-card">
+        <div class="platform-logo mrd">Mr D</div>
+        <div class="platform-logo mrd" style="font-size:1.2rem;">Food</div>
+        <div class="platform-sub">Delivered in 30–40 min</div>
+        <a href="#" class="platform-link">Order Now →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header reveal">
+    <span class="section-label">Kasi Love</span>
+    <h2 class="section-h2">What The <span class="hi">People</span> Say</h2>
+    <p>Real flavour. Real reviews. Real Vosloo energy.</p>
+  </div>
+  <div class="testimonial-grid reveal">
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"This kota changed my life, no cap. The OG Kota hits different every single time. Proper kasi flavour with that premium quality — nothing else comes close in Joburg."</p>
+      <div class="t-user">
+        <div class="t-avatar" style="background:var(--orange);">TK</div>
+        <div>
+          <div class="t-name">Thabo K.</div>
+          <div class="t-loc">📍 Soweto, JHB</div>
+        </div>
+      </div>
+    </div>
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Best late-night food spot in Joburg, hands down. The Fire Starter is addictive — I order at least twice a week. Hai ngiyaniVuma guys."</p>
+      <div class="t-user">
+        <div class="t-avatar" style="background:var(--red);">LM</div>
+        <div>
+          <div class="t-name">Lerato M.</div>
+          <div class="t-loc">📍 Alexandra, JHB</div>
+        </div>
+      </div>
+    </div>
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-text">"Kasi Crave iyayishaya lento yabo YOH. We end every Friday here — the music is fire, the Braai Master is elite, and the neon atmosphere is everything."</p>
+      <div class="t-user">
+        <div class="t-avatar" style="background:var(--yellow);color:var(--mb);">SS</div>
+        <div>
+          <div class="t-name">Sipho S.</div>
+          <div class="t-loc">📍 Diepkloof, JHB</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-header reveal">
+    <span class="section-label">Social</span>
+    <h2 class="section-h2">#KasiCrave<span class="hi">Vibes</span></h2>
+    <p>Follow the flavour journey @kasicravekota</p>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="g-item">
+      <img class="g-img" src="img\The OG Kota.png" alt="The OG Kota" />
+      <div class="g-overlay"><span class="g-tag">🔥 The OG Kota</span></div>
+    </div>
+    <div class="g-item">
+      <img class="g-img" src="img\Russian Loaded Fries.png" alt="Loaded Fries" />
+      <div class="g-overlay"><span class="g-tag">🍟 Loaded Fries</span></div>
+    </div>
+    <div class="g-item">
+      <img class="g-img" src="img\Wings.png" alt="Crispy Wings" />
+      <div class="g-overlay"><span class="g-tag">🍗 Crispy Wings</span></div>
+    </div>
+    <div class="g-item">
+      <img class="g-img" src="img\Kasi Crave Kota Restaurant Interior Image.png" alt="Beautiful Nights" />
+      <div class="g-overlay"><span class="g-tag">✨ Beautiful Nights</span></div>
+    </div>
+    <div class="g-item">
+      <img class="g-img" src="img\Kota on plate.png" alt="Gorgeous Food" />
+      <div class="g-overlay"><span class="g-tag">🧀 Gorgeous Food</span></div>
+    </div>
+    <div class="g-item">
+      <img class="g-img" src="img\The Fire Starter.png" alt="Fire Starter" />
+      <div class="g-overlay"><span class="g-tag">🌶 Fire Starter</span></div>
+    </div>
+    <div class="g-item">
+      <img class="g-img" src="img\Kasi Crave Kota Restaurant Outdoor Image.png" alt="The Vibe" />
+      <div class="g-overlay"><span class="g-tag">🎵 The Vibe</span></div>
+    </div>
+  </div>
+  <p class="ig-follow reveal">Follow us on Instagram <a href="#">@KasiCraveKota</a> for daily food drops & vibes 🔥</p>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">KASI CRAVE KOTA</div>
+      <div class="footer-slogan">Stacked With Flavour</div>
+      <p class="footer-about">Premium kasi street food born from the vibrant streets of Johannesburg's townships. Real flavour. Real culture. Real Joburg.</p>
+      <div class="social-row">
+        <a href="#" class="social-btn" title="Instagram">IG</a>
+        <a href="#" class="social-btn" title="TikTok">TT</a>
+        <a href="#" class="social-btn" title="Facebook">FB</a>
+        <a href="#" class="social-btn" title="Twitter/X">𝕏</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-h">Navigate</div>
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#delivery">Delivery</a></li>
+        <li><a href="#">Franchising</a></li>
+        <li><a href="#">Careers</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-h">Hours</div>
+      <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem;">
+        <div class="hours-row"><span>Mon–Thu</span><span>24/7</span></div>
+        <div class="hours-row"><span>Fri–Sat</span><span>24/7</span></div>
+        <div class="hours-row"><span>Sunday</span><span>24/7</span></div>
+      </div>
+      <div class="footer-h">Delivery</div>
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+        <span style="font-size:.78rem;color:#06c167;font-weight:700;">Uber Eats</span>
+        <span style="font-size:.78rem;color:#34d399;font-weight:700;">Bolt Food</span>
+        <span style="font-size:.78rem;color:var(--yellow);font-weight:700;">Mr D</span>
+      </div>
+    </div>
+    <div id="contact-info">
+      <div class="footer-h">Find Us</div>
+      <div class="footer-info">
+        <span>123 Bozi Street, Vosloorus, ZA, 1475</span>
+        <span>info@kasicrave.co.za</span>
+        <span>+27 11 123 4567</span>
+        <span>WhatsApp: +27 82 000 0000</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Kasi Crave Kota. All rights reserved.</span>
+    <span>Made by 14OURTEEN Digital Services</span>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div id="toast">✓ Added to cart!</div>
+
+<script>
+  // Mobile nav
+  function openMobile() { document.getElementById('mobile-menu').classList.add('open'); }
+  function closeMobile() { document.getElementById('mobile-menu').classList.remove('open'); }
+  document.getElementById('mobile-close').addEventListener('click', closeMobile);
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (!t) return;
+      e.preventDefault();
+      t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Cart toast
+  let toastTimeout;
+  function addToCart(name) {
+    const toast = document.getElementById('toast');
+    toast.textContent = '✓ ' + name + ' added!';
+    toast.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  // Sticky nav tweak
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    nav.style.background = window.scrollY > 60
+      ? 'rgba(13,13,13,0.98)'
+      : 'rgba(18,18,18,0.85)';
+  });
+
+  // Menu tab filter (cosmetic)
+  document.querySelectorAll('.tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
