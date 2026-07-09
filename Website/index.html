@@ -9,7 +9,7 @@
   ═══════════════════════════════════════ -->
   <title>14OURTEEN Digital Solutions | Professional Digital Solutions Built for Growth</title>
   <meta name="description" content="14OURTEEN Digital Solutions helps entrepreneurs, startups and established businesses build credible digital identities through branding, websites, and digital services. Based in South Africa.">
-  <meta name="keywords" content="digital solutions South Africa, branding, website design, logo design, WhatsApp Business setup, Google Business Profile, digital marketing, Voeloorun">
+  <meta name="keywords" content="digital solutions South Africa, branding, website design, logo design, WhatsApp Business setup, Google Business Profile, digital marketing, Vosloorus">
   <meta name="author" content="14OURTEEN Digital Solutions">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://14ourteends.co.za/">
@@ -711,6 +711,122 @@
       #lightbox { padding: 1rem; }
       #lightbox-img { max-height: 60vh; }
     }
+
+    /* ── BEFORE & AFTER SLIDER ─────────────────── */
+    .ba-section { padding: 5rem 0 6rem; background: var(--dark); }
+
+    .ba-card {
+      position: relative; border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 50px rgba(0,0,0,.4);
+      transition: border-color .3s, box-shadow .3s;
+      user-select: none; -webkit-user-select: none;
+      cursor: col-resize;
+      --ba-pct: 50; 
+    }
+    .ba-card:hover {
+      border-color: var(--border2);
+      box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 40px rgba(26,82,255,.1);
+    }
+
+    .ba-before, .ba-after {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+    }
+    .ba-before img, .ba-after img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      pointer-events: none;
+    }
+    .ba-after {
+      clip-path: inset(0 calc((100 - var(--ba-pct, 50)) * 1%) 0 0);
+    }
+
+    /* Label badges */
+    .ba-label {
+      position: absolute; top: 14px;
+      font-family: 'Raleway', sans-serif; font-size: .62rem;
+      font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      padding: .3rem .75rem; border-radius: 100px; z-index: 4;
+      pointer-events: none;
+    }
+    .ba-label-before {
+      right: 14px;
+      background: rgba(5,8,15,.75); color: var(--muted);
+      border: 1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(6px);
+    }
+    .ba-label-after {
+      left: 14px;
+      background: rgba(26,82,255,.25); color: #fff;
+      border: 1px solid rgba(26,82,255,.45);
+      backdrop-filter: blur(6px);
+    }
+
+    /* Drag line */
+    .ba-divider {
+      position: absolute; top: 0; bottom: 0;
+      left: calc(var(--ba-pct, 50) * 1%);
+      transform: translateX(-50%);
+      width: 2px; z-index: 5;
+      background: linear-gradient(180deg, transparent 0%, rgba(26,82,255,.8) 15%, #fff 50%, rgba(26,82,255,.8) 85%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* Handle */
+    .ba-handle {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--glow));
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 4px rgba(26,82,255,.3), 0 4px 20px rgba(0,0,0,.5);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 6; cursor: col-resize;
+      transition: transform .15s ease, box-shadow .2s;
+    }
+    .ba-handle:hover, .ba-card.dragging .ba-handle {
+      transform: translate(-50%, -50%) scale(1.12);
+      box-shadow: 0 0 0 6px rgba(26,82,255,.35), 0 6px 28px rgba(0,0,0,.6);
+    }
+    .ba-handle svg { pointer-events: none; flex-shrink: 0; }
+
+    /* Aspect ratio spacer */
+    .ba-spacer { display: block; width: 100%; padding-top: 62%; }
+
+    /* Caption bar */
+    .ba-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.5rem 1.25rem .9rem;
+      background: linear-gradient(0deg, rgba(5,8,15,.95) 0%, transparent 100%);
+      z-index: 3; pointer-events: none;
+    }
+    .ba-caption-title {
+      font-family: 'Montserrat', sans-serif; font-weight: 700;
+      font-size: .875rem; color: #fff; margin-bottom: .2rem;
+    }
+    .ba-caption-sub {
+      font-family: 'Raleway', sans-serif; font-size: .65rem;
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--glow);
+    }
+
+    /* Hint nudge text */
+    .ba-hint-text {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Raleway', sans-serif; font-size: .65rem;
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.5); white-space: nowrap;
+      pointer-events: none; z-index: 7;
+      transition: opacity .3s;
+    }
+    .ba-card.touched .ba-hint-text { opacity: 0; }
+
+    @media (max-width: 640px) {
+      .ba-handle { width: 38px; height: 38px; }
+      .ba-spacer { padding-top: 75%; }
+    }
   </style>
 </head>
 
@@ -740,6 +856,7 @@
       <!-- Desktop Links -->
       <div style="display:flex;align-items:center;gap:1.5rem" class="hidden lg:flex">
         <a href="#home"      class="nav-link active">Home</a>
+        <a href="#before&after"  class="nav-link">Before & After</a>
         <a href="#services"  class="nav-link">Services</a>
         <a href="#about"     class="nav-link">About</a>
         <a href="#vision"    class="nav-link">Vision</a>
@@ -765,6 +882,7 @@
   <!-- Mobile Menu -->
   <div id="mobile-menu" role="menu" aria-label="Mobile navigation">
     <a href="#home"      class="mob-link" role="menuitem">Home</a>
+    <a href="#before&after"  class="mob-link" role="menuitem">Before & After</a>
     <a href="#services"  class="mob-link" role="menuitem">Services</a>
     <a href="#about"     class="mob-link" role="menuitem">About</a>
     <a href="#vision"    class="mob-link" role="menuitem">Vision</a>
@@ -858,6 +976,123 @@
   </a>
 </section>
 
+<!-- ═══════════════════════════════════════════════
+     BEFORE & AFTER SECTION
+════════════════════════════════════════════════ -->
+<section id="before&after" aria-label="Before and After Transformations" class="ba-section">
+  <div class="max-w-7xl mx-auto px-5 lg:px-8">
+
+    <!-- Header -->
+    <div class="reveal" style="text-align:center;margin-bottom:3.5rem">
+      <div class="s-label" style="justify-content:center;margin-bottom:.75rem"><span>The Transformation</span></div>
+      <h2 class="s-title" style="margin-bottom:1rem">See the <span>Difference</span> We Make</h2>
+      <p style="color:var(--muted);max-width:520px;margin:0 auto;font-size:.9375rem">
+        Drag the slider to reveal the transformation. This is what a professional digital identity looks like.
+      </p>
+    </div>
+
+    <!-- Grid -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.75rem">
+
+      <!-- TILE 1 -->
+      <div class="reveal d1">
+        <div class="ba-card" data-ba="1">
+          <span class="ba-spacer"></span>
+
+          <div class="ba-before">
+            <img src="img/before-after/Mikes Plumbing Flyer.png" alt="Before: no brand identity">
+          </div>
+          <div class="ba-after">
+            <img src="img/before-after/Plumbing Precise New Flyer.png" alt="After: professional logo and brand kit">
+          </div>
+
+          <span class="ba-label ba-label-before">Before</span>
+          <span class="ba-label ba-label-after">After</span>
+
+          <div class="ba-divider">
+            <div class="ba-handle">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5">
+                <polyline points="15 18 9 12 15 6" transform="translate(-2,0)"/>
+                <polyline points="9 18 15 12 9 6"  transform="translate(2,0)"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="ba-hint-text">← Drag to reveal →</div>
+          <div class="ba-caption">
+            <div class="ba-caption-title">Logo &amp; Brand Identity</div>
+            <div class="ba-caption-sub">Branding Package</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TILE 2 -->
+      <div class="reveal d2">
+        <div class="ba-card" data-ba="2">
+          <span class="ba-spacer"></span>
+
+          <div class="ba-before">
+            <img src="img/before-after/Kasi Crave Kota Old Establishment.png" alt="Before: no website">
+          </div>
+          <div class="ba-after">
+            <img src="img/before-after/Kasi Crave Kota New Establishment.png" alt="After: professional business website">
+          </div>
+
+          <span class="ba-label ba-label-before">Before</span>
+          <span class="ba-label ba-label-after">After</span>
+
+          <div class="ba-divider">
+            <div class="ba-handle">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5">
+                <polyline points="15 18 9 12 15 6" transform="translate(-2,0)"/>
+                <polyline points="9 18 15 12 9 6"  transform="translate(2,0)"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="ba-hint-text">← Drag to reveal →</div>
+          <div class="ba-caption">
+            <div class="ba-caption-title">Business Website</div>
+            <div class="ba-caption-sub">Website Design &amp; Development</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TILE 3 -->
+      <div class="reveal d3">
+        <div class="ba-card" data-ba="3">
+          <span class="ba-spacer"></span>
+
+          <div class="ba-before">
+            <img src="img/before-after/Plumbing Precise Social Media Post.png" alt="Before: no digital presence">
+          </div>
+          <div class="ba-after">
+            <img src="img/before-after/Plumbing Precise Branding Project.png" alt="After: complete digital setup">
+          </div>
+
+          <span class="ba-label ba-label-before">Before</span>
+          <span class="ba-label ba-label-after">After</span>
+
+          <div class="ba-divider">
+            <div class="ba-handle">
+              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5">
+                <polyline points="15 18 9 12 15 6" transform="translate(-2,0)"/>
+                <polyline points="9 18 15 12 9 6"  transform="translate(2,0)"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="ba-hint-text">← Drag to reveal →</div>
+          <div class="ba-caption">
+            <div class="ba-caption-title">Complete Digital Setup</div>
+            <div class="ba-caption-sub">Standard Package</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- ═══════════════════════════════════════════════
      SERVICES SECTION
@@ -1253,13 +1488,25 @@
     <!-- Grid -->
     <div id="port-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.25rem">
 
-      <div class="p-card reveal d1" data-cat="branding">
+      <!--<div class="p-card reveal d1" data-cat="branding">
         <span class="cs-badge">Coming Soon</span>
         <div class="p-ph">
           <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="rgba(26,82,255,.35)" stroke-width="1"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <span style="font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.18)">Branding Project</span>
         </div>
         <div class="p-overlay"><div><div style="color:#fff;font-size:.875rem;font-weight:700;font-family:'Montserrat',sans-serif">Brand Identity</div><div style="font-size:.75rem;color:var(--muted);margin-top:.2rem">Branding</div></div></div>
+      </div>-->
+
+      <div class="p-card reveal d1" data-cat="branding" data-lightbox="true" data-title="Branding" data-tag="Branding Project">
+        <span class="cs-badge">Plumbing Precise Branding Project</span>
+        <img src="img/before-after/Plumbing Precise Branding Project.png" alt="Plumbing Precise Branding Project"
+            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        <div class="p-overlay">
+          <div>
+            <div style="color:#fff;font-size:.875rem;font-weight:700;font-family:'Montserrat',sans-serif">Plumbing Precise Branding Project</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.2rem">Branding Project</div>
+          </div>
+        </div>
       </div>
 
       <!--<div class="p-card reveal d2" data-cat="website">
@@ -1332,14 +1579,27 @@
         <div class="p-overlay"><div><div style="color:#fff;font-size:.875rem;font-weight:700;font-family:'Montserrat',sans-serif">Landing Page</div><div style="font-size:.75rem;color:var(--muted);margin-top:.2rem">Website Design</div></div></div>
       </div>
 
-      <div class="p-card reveal d3" data-cat="marketing">
+      <!--<div class="p-card reveal d3" data-cat="marketing">
         <span class="cs-badge">Coming Soon</span>
         <div class="p-ph">
           <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="rgba(26,82,255,.35)" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
           <span style="font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.18)">Social Media</span>
         </div>
         <div class="p-overlay"><div><div style="color:#fff;font-size:.875rem;font-weight:700;font-family:'Montserrat',sans-serif">Social Media Graphics</div><div style="font-size:.75rem;color:var(--muted);margin-top:.2rem">Marketing</div></div></div>
+      </div>-->
+
+      <div class="p-card reveal d1" data-cat="marketing" data-lightbox="true" data-title="Social Media" data-tag="Advertisement Posts">
+        <span class="cs-badge">Kasi Crave Kota Social Media Post</span>
+        <img src="Recent Projects\Kasi Crave Website\img\The OG Kota Advert 1.png" alt="Kasi Crave Kota Social Media Post"
+            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        <div class="p-overlay">
+          <div>
+            <div style="color:#fff;font-size:.875rem;font-weight:700;font-family:'Montserrat',sans-serif">Kasi Crave Kota Social Media Post</div>
+            <div style="font-size:.75rem;color:var(--muted);margin-top:.2rem">Social Media Posts</div>
+          </div>
+        </div>
       </div>
+      
 
       <div class="p-card reveal d4" data-cat="digital">
         <span class="cs-badge">Coming Soon</span>
@@ -1447,7 +1707,7 @@
 
       <div class="faq-item reveal d1">
         <button class="faq-q" aria-expanded="false"><span>How long does a project typically take?</span><div class="faq-ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></button>
-        <div class="faq-body"><div class="faq-inner">Project timelines depend on complexity and package. The Basic Package (branding) typically takes 3–5 business days. The Standard Package takes 5–7 business days. The Premium Package, which includes a website, generally takes 7–14 business days. You'll receive a specific timeline in your quote.</div></div>
+        <div class="faq-body"><div class="faq-inner">Project timelines depend on complexity and package. The Basic Package (branding) typically takes 3–5 business days. The Standard Package takes 5–7 business days. The Premium Package, which includes a website, generally takes 7–14 business days. We strive to get your project done as quickly as possible while delivering the best results.</div></div>
       </div>
 
       <div class="faq-item reveal d2">
@@ -1457,7 +1717,7 @@
 
       <div class="faq-item reveal d3">
         <button class="faq-q" aria-expanded="false"><span>What do the prices include? Are there hidden fees?</span><div class="faq-ico"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></button>
-        <div class="faq-body"><div class="faq-inner">All package prices are once-off payments with no hidden fees. The displayed price is what you pay for design and setup work. Note that hosting and domain registration (for websites) are third-party costs paid directly to a hosting provider — we advise you on the best provider and assist with setup. We keep everything fully transparent.</div></div>
+        <div class="faq-body"><div class="faq-inner">All package prices are once-off payments with no hidden fees. The displayed price is what you pay for design and setup work. Note that hosting and domain registration (for websites)and other external costs are third-party costs paid directly to the provider — we advise you on the best provider and assist with setup. We keep everything fully transparent.</div></div>
       </div>
 
       <div class="faq-item reveal d1">
@@ -1656,6 +1916,7 @@
       <div>
         <h4 style="font-family:'Montserrat',sans-serif;font-weight:700;color:#fff;font-size:.85rem;letter-spacing:.05em;margin-bottom:1rem">Navigation</h4>
         <a href="#home"      class="f-link">Home</a>
+        <a href="#before&after"  class="mob-link" role="menuitem">Before & After</a>
         <a href="#services"  class="f-link">Services</a>
         <a href="#about"     class="f-link">About</a>
         <a href="#vision"    class="f-link">Vision &amp; Mission</a>
@@ -1689,7 +1950,7 @@
         </a>
         <span class="f-link" style="display:flex;align-items:center;gap:.5rem">
           <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Voeloorun, South Africa
+          Vosloorus, South Africa
         </span>
         <span class="f-link" style="display:flex;align-items:center;gap:.5rem">
           <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -1969,6 +2230,104 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold:.08, rootMargin:'0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+
+/* ─────────────────────────────────────────────
+   BEFORE & AFTER SLIDERS
+───────────────────────────────────────────── */
+(function() {
+  document.querySelectorAll('.ba-card').forEach(card => {
+    const handle = card.querySelector('.ba-handle');
+
+    /* Single function — sets CSS variable which drives BOTH clip-path and divider */
+    function setPos(clientX) {
+      const rect = card.getBoundingClientRect();
+      let pct    = ((clientX - rect.left) / rect.width) * 100;
+      pct        = Math.max(2, Math.min(98, pct));
+      card.style.setProperty('--ba-pct', pct);
+      card.classList.add('touched');
+    }
+
+    /* ── Pointer capture ─────────────────────────────────────────────────
+       setPointerCapture is the correct API for drag interactions.
+       It locks ALL pointer events to the handle even when the mouse
+       moves outside it, so the divider tracks the cursor perfectly.
+       Works for both mouse AND touch with one unified API.
+    ────────────────────────────────────────────────────────────────────── */
+    handle.addEventListener('pointerdown', e => {
+      handle.setPointerCapture(e.pointerId);
+      card.classList.add('dragging');
+      document.body.style.cursor = 'col-resize';
+      e.preventDefault();
+    });
+
+    handle.addEventListener('pointermove', e => {
+      if (!handle.hasPointerCapture(e.pointerId)) return;
+      setPos(e.clientX);
+    });
+
+    handle.addEventListener('pointerup', e => {
+      if (!handle.hasPointerCapture(e.pointerId)) return;
+      handle.releasePointerCapture(e.pointerId);
+      card.classList.remove('dragging');
+      document.body.style.cursor = '';
+    });
+
+    /* Safety net in case pointer capture is lost unexpectedly */
+    handle.addEventListener('lostpointercapture', () => {
+      card.classList.remove('dragging');
+      document.body.style.cursor = '';
+    });
+
+    /* Click anywhere on card body also jumps the divider instantly */
+    card.addEventListener('click', e => {
+      if (handle.contains(e.target)) return;
+      setPos(e.clientX);
+    });
+
+    /* ── JS hint animation ────────────────────────────────────────────────
+       Replaces the old CSS animation which was freezing the divider.
+       Uses requestAnimationFrame so it never conflicts with JS-set values.
+    ────────────────────────────────────────────────────────────────────── */
+    const io = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting || card.classList.contains('touched')) return;
+
+      let startTime = null;
+      const duration = 1000;
+
+      function easeInOut(x) {
+        return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+      }
+
+      function animate(ts) {
+        if (card.classList.contains('touched')) {
+          card.style.setProperty('--ba-pct', 50);
+          return;
+        }
+        if (!startTime) startTime = ts;
+        const t = Math.min((ts - startTime) / duration, 1);
+
+        let pct;
+        if      (t < 0.35) pct = 50 - 15 * easeInOut(t / 0.35);
+        else if (t < 0.65) pct = 35 + 15 * easeInOut((t - 0.35) / 0.30);
+        else if (t < 0.82) pct = 50 -  8 * easeInOut((t - 0.65) / 0.17);
+        else               pct = 42 +  8 * easeInOut((t - 0.82) / 0.18);
+
+        card.style.setProperty('--ba-pct', pct);
+
+        if (t < 1) requestAnimationFrame(animate);
+        else card.style.setProperty('--ba-pct', 50);
+      }
+
+      setTimeout(() => {
+        if (!card.classList.contains('touched')) requestAnimationFrame(animate);
+      }, 700);
+
+      io.disconnect();
+    }, { threshold: 0.5 });
+
+    io.observe(card);
+  });
 })();
 
 /* ─────────────────────────────────────────────
