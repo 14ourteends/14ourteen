@@ -712,6 +712,47 @@
       #lightbox-img { max-height: 60vh; }
     }
 
+    /* =========================================
+      SEVICES RESPONSIVE GRIDS
+    ========================================= */
+
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:1.5rem;
+      align-items:start;
+    }
+
+    /* ==========================================
+      BEFORE & AFTER RESPONSIVE GRID
+    ========================================== */
+
+    .ba-grid{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:28px;
+    }
+
+    @media (max-width:768px){
+      .ba-grid{
+        grid-template-columns:1fr;
+      }
+
+      .ba-spacer{
+        padding-top:115%;
+      }
+
+      .services-grid{
+        grid-template-columns:1fr;
+      }
+
+      .card{
+        max-width:500px;
+        width:100%;
+        margin-inline:auto;
+      }
+    }
+
     /* ── BEFORE & AFTER SLIDER ─────────────────── */
     .ba-section { padding: 5rem 0 6rem; background: var(--dark); }
 
@@ -723,6 +764,7 @@
       user-select: none; -webkit-user-select: none;
       cursor:grab;
       --ba-pct: 50; 
+      touch-action:none;
     }
     .ba-card.dragging{
       cursor:grabbing;
@@ -1110,7 +1152,7 @@
     </div>
 
     <!-- Grid -->
-    <div class="ba-grid" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.75rem">
+    <div class="ba-grid">
 
       <!-- TILE 1 -->
       <div class="reveal d1">
@@ -1293,7 +1335,7 @@
 
     <!-- ── PACKAGES TAB ── -->
     <div id="tab-packages" class="tab-pane" role="tabpanel">
-      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem;align-items:start">
+      <div class="services-grid">
 
         <!-- BASIC -->
         <article class="card reveal d1" style="padding:1.75rem;display:flex;flex-direction:column">
@@ -1408,7 +1450,7 @@
 
     <!-- ── SINGLE SERVICES TAB ── -->
     <div id="tab-single" class="tab-pane" style="display:none" role="tabpanel">
-      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem">
+      <div class="services-grid">
 
         <!-- BRANDING -->
         <article class="card reveal d1" style="padding:1.75rem">
@@ -2354,37 +2396,42 @@ window.addEventListener('load', () => {
   const category=document.getElementById("ba-lightbox-tag");
 
   function initialiseBeforeAfter(card){
-    let dragging=false;
 
-    function update(clientX){
-      const rect=card.getBoundingClientRect();
-      let pct=((clientX-rect.left)/rect.width)*100;
-      pct=Math.max(2,Math.min(98,pct));
-      card.style.setProperty("--ba-pct",pct);
-      card.classList.add("touched");
+    let dragging = false;
+
+    function updatePosition(clientX){
+      const rect = card.getBoundingClientRect();
+      let pct = ((clientX - rect.left) / rect.width) * 100;
+      pct = Math.max(0, Math.min(100, pct));
+      card.style.setProperty("--ba-pct", pct);
     }
 
-    card.addEventListener("pointerdown",(e)=>{
-      dragging=true;
+    function start(e){
+      dragging = true;
       card.classList.add("dragging");
-      card.setPointerCapture(e.pointerId);
-      update(e.clientX);
-    });
+      updatePosition(e.clientX);
+      e.preventDefault();
+    }
 
-    card.addEventListener("pointermove",(e)=>{
+    function move(e){
       if(!dragging) return;
-      update(e.clientX);
-    });
+      updatePosition(e.clientX);
+      e.preventDefault();
+    }
 
-    card.addEventListener("pointerup",()=>{
-      dragging=false;
+    function end(){
+      dragging = false;
       card.classList.remove("dragging");
-    });
+    }
 
-    card.addEventListener("pointercancel",()=>{
-      dragging=false;
-      card.classList.remove("dragging");
-    });
+    card.addEventListener("pointerdown", start);
+
+    window.addEventListener("pointermove", move);
+
+    window.addEventListener("pointerup", end);
+
+    window.addEventListener("pointercancel", end);
+
   }
 
   document.querySelectorAll(".ba-card").forEach(initialiseBeforeAfter);
