@@ -34,8 +34,8 @@
   <meta name="twitter:image" content="https://14ourteends.co.za/14ourteen-cover.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="14ourteen-logo.png">
-  <link rel="apple-touch-icon" href="14ourteen-logo.png">
+  <link rel="icon" type="image/png" href="img/14OURTEEN_Logo_Transparent_Background.png">
+  <link rel="apple-touch-icon" href="img/14OURTEEN_Logo_Transparent_Background.png">
 
   <!-- ═══════════════════════════════════════
        GOOGLE FONTS
@@ -721,8 +721,11 @@
       box-shadow: 0 20px 50px rgba(0,0,0,.4);
       transition: border-color .3s, box-shadow .3s;
       user-select: none; -webkit-user-select: none;
-      cursor: col-resize;
+      cursor:grab;
       --ba-pct: 50; 
+    }
+    .ba-card.dragging{
+      cursor:grabbing;
     }
     .ba-card:hover {
       border-color: var(--border2);
@@ -822,6 +825,121 @@
       transition: opacity .3s;
     }
     .ba-card.touched .ba-hint-text { opacity: 0; }
+    
+    .ba-image-wrapper{
+      position:relative;
+      overflow:hidden;
+      border-radius:18px;
+    }
+
+    .ba-content{
+      padding-top:18px;
+    }
+
+    .ba-fullscreen-btn{
+      width:100%;
+      margin-top:16px;
+    }
+
+    /* ---------- Before & After Overlay Button ---------- */
+    .ba-wrapper{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      width:100%;
+      min-width:0;
+    }
+
+    .ba-view-full{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:14px;
+      border-radius:12px;
+      min-width:0;
+      box-sizing:border-box;
+    }
+
+    .ba-view-full:hover{
+      transform:translateY(-2px);
+      background:rgba(37,99,235,.85);
+      border-color:rgba(255,255,255,.25);
+    }
+    
+    /* ---------- BA Lightbox ---------- */
+    #ba-lightbox{
+      position:fixed;
+      inset:0;
+      z-index:300;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:2rem;
+      opacity:0;
+      visibility:hidden;
+      transition:.35s;
+    }
+
+    #ba-lightbox.open{
+      opacity:1;
+      visibility:visible;
+    }
+
+    #ba-lightbox-backdrop{
+      position:absolute;
+      inset:0;
+      background:rgba(5,8,15,.88);
+      backdrop-filter:blur(18px);
+    }
+
+    #ba-lightbox-content{
+      position:relative;
+      z-index:2;
+      width:min(1300px,94vw);
+      background:var(--card);
+      border:1px solid var(--border2);
+      border-radius:18px;
+      overflow:hidden;
+      transform:scale(.94);
+      transition:.35s;
+    }
+
+    #ba-lightbox.open #ba-lightbox-content{
+      transform:scale(1);
+    }
+
+    #ba-lightbox-close{
+      position:absolute;
+      right:18px;
+      top:18px;
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      border:none;
+      cursor:pointer;
+    }
+
+    #ba-lightbox-caption{
+      padding:24px 28px 10px;
+    }
+
+    #ba-lightbox-title{
+      font-size:1.3rem;
+      font-weight:700;
+      color:#fff;
+    }
+
+    #ba-lightbox-tag{
+      color:var(--blue);
+      margin-top:6px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+
+    .ba-lightbox-card{
+      margin:28px;
+    }
 
     @media (max-width: 640px) {
       .ba-handle { width: 38px; height: 38px; }
@@ -992,102 +1110,160 @@
     </div>
 
     <!-- Grid -->
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.75rem">
+    <div class="ba-grid" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.75rem">
 
       <!-- TILE 1 -->
       <div class="reveal d1">
-        <div class="ba-card" data-ba="1">
-          <span class="ba-spacer"></span>
+        <div class="ba-wrapper">
+          <div class="ba-card"
+            data-before="img/before-after/Mikes Plumbing Flyer.png"
+            data-after="img/before-after/Plumbing Precise New Flyer.png"
+            data-title="Business Flyer Refresh"
+            data-category="Branding">
 
-          <div class="ba-before">
-            <img src="img/before-after/Mikes Plumbing Flyer.png" alt="Before: no brand identity">
-          </div>
-          <div class="ba-after">
-            <img src="img/before-after/Plumbing Precise New Flyer.png" alt="After: professional logo and brand kit">
-          </div>
+            <span class="ba-spacer"></span>
 
-          <span class="ba-label ba-label-before">Before</span>
-          <span class="ba-label ba-label-after">After</span>
+            <div class="ba-before">
+                <img src="img/before-after/Mikes Plumbing Flyer.png" alt="">
+            </div>
 
-          <div class="ba-divider">
-            <div class="ba-handle">
-              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5">
-                <polyline points="15 18 9 12 15 6" transform="translate(-2,0)"/>
-                <polyline points="9 18 15 12 9 6"  transform="translate(2,0)"/>
-              </svg>
+            <div class="ba-after">
+                <img src="img/before-after/Plumbing Precise New Flyer.png" alt="">
+            </div>
+
+            <span class="ba-label ba-label-before">Before</span>
+            <span class="ba-label ba-label-after">After</span>
+
+            <div class="ba-divider">
+                <div class="ba-handle">
+                    <i class="fa-solid fa-arrows-left-right"></i>
+                </div>
+            </div>
+
+            <div class="ba-hint-text">
+                ← Drag to reveal →
+            </div>
+
+            <div class="ba-caption">
+                <div class="ba-caption-title">
+                    Business Flyer Refresh
+                </div>
+
+                <div class="ba-caption-sub">
+                    Branding
+                </div>
             </div>
           </div>
 
-          <div class="ba-hint-text">← Drag to reveal →</div>
-          <div class="ba-caption">
-            <div class="ba-caption-title">Logo &amp; Brand Identity</div>
-            <div class="ba-caption-sub">Branding Package</div>
-          </div>
+          <button class="btn-secondary ba-view-full">
+              <i class="fa-solid fa-expand"></i>
+              View in Full
+          </button>
+
         </div>
       </div>
 
       <!-- TILE 2 -->
-      <div class="reveal d2">
-        <div class="ba-card" data-ba="2">
-          <span class="ba-spacer"></span>
+      <div class="reveal d1">
+        <div class="ba-wrapper">
+          <div class="ba-card"
+            data-before="img/before-after/Kasi Crave Kota Old Establishment.png"
+            data-after="img/before-after/Kasi Crave Kota New Establishment.png"
+            data-title="Business Brand Refresh"
+            data-category="Branding">
 
-          <div class="ba-before">
-            <img src="img/before-after/Kasi Crave Kota Old Establishment.png" alt="Before: no website">
-          </div>
-          <div class="ba-after">
-            <img src="img/before-after/Kasi Crave Kota New Establishment.png" alt="After: professional business website">
-          </div>
+            <span class="ba-spacer"></span>
 
-          <span class="ba-label ba-label-before">Before</span>
-          <span class="ba-label ba-label-after">After</span>
+            <div class="ba-before">
+                <img src="img/before-after/Kasi Crave Kota Old Establishment.png" alt="">
+            </div>
 
-          <div class="ba-divider">
-            <div class="ba-handle">
-              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5">
-                <polyline points="15 18 9 12 15 6" transform="translate(-2,0)"/>
-                <polyline points="9 18 15 12 9 6"  transform="translate(2,0)"/>
-              </svg>
+            <div class="ba-after">
+                <img src="img/before-after/Kasi Crave Kota New Establishment.png" alt="">
+            </div>
+
+            <span class="ba-label ba-label-before">Before</span>
+            <span class="ba-label ba-label-after">After</span>
+
+            <div class="ba-divider">
+                <div class="ba-handle">
+                    <i class="fa-solid fa-arrows-left-right"></i>
+                </div>
+            </div>
+
+            <div class="ba-hint-text">
+                ← Drag to reveal →
+            </div>
+
+            
+
+            <div class="ba-caption">
+                <div class="ba-caption-title">
+                    Business Brand Refresh
+                </div>
+
+                <div class="ba-caption-sub">
+                    Branding
+                </div>
             </div>
           </div>
 
-          <div class="ba-hint-text">← Drag to reveal →</div>
-          <div class="ba-caption">
-            <div class="ba-caption-title">Business Website</div>
-            <div class="ba-caption-sub">Website Design &amp; Development</div>
-          </div>
+          <button class="btn-secondary ba-view-full">
+              <i class="fa-solid fa-expand"></i>
+              View in Full
+          </button>
+
         </div>
       </div>
 
       <!-- TILE 3 -->
-      <div class="reveal d3">
-        <div class="ba-card" data-ba="3">
-          <span class="ba-spacer"></span>
+      <div class="reveal d1">
+        <div class="ba-wrapper">
+          <div class="ba-card"
+            data-before="img/before-after/Mikes Plumbing Flyer.png"
+            data-after="img/before-after/Plumbing Precise Social Media Post.png"
+            data-title="Social Media Refresh"
+            data-category="Marketing">
 
-          <div class="ba-before">
-            <img src="img/before-after/Plumbing Precise Social Media Post.png" alt="Before: no digital presence">
-          </div>
-          <div class="ba-after">
-            <img src="img/before-after/Plumbing Precise Branding Project.png" alt="After: complete digital setup">
-          </div>
+            <span class="ba-spacer"></span>
 
-          <span class="ba-label ba-label-before">Before</span>
-          <span class="ba-label ba-label-after">After</span>
+            <div class="ba-before">
+                <img src="img/before-after/Mikes Plumbing Flyer.png" alt="">
+            </div>
 
-          <div class="ba-divider">
-            <div class="ba-handle">
-              <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5">
-                <polyline points="15 18 9 12 15 6" transform="translate(-2,0)"/>
-                <polyline points="9 18 15 12 9 6"  transform="translate(2,0)"/>
-              </svg>
+            <div class="ba-after">
+                <img src="img/before-after/Plumbing Precise Social Media Post.png" alt="">
+            </div>
+
+            <span class="ba-label ba-label-before">Before</span>
+            <span class="ba-label ba-label-after">After</span>
+
+            <div class="ba-divider">
+                <div class="ba-handle">
+                    <i class="fa-solid fa-arrows-left-right"></i>
+                </div>
+            </div>
+
+            <div class="ba-hint-text">
+                ← Drag to reveal →
+            </div>
+
+            <div class="ba-caption">
+                <div class="ba-caption-title">
+                    Social Media Refresh
+                </div>
+
+                <div class="ba-caption-sub">
+                    Marketing
+                </div>
             </div>
           </div>
 
-          <div class="ba-hint-text">← Drag to reveal →</div>
-          <div class="ba-caption">
-            <div class="ba-caption-title">Complete Digital Setup</div>
-            <div class="ba-caption-sub">Standard Package</div>
-          </div>
-        </div>
+          <button class="btn-secondary ba-view-full">
+              <i class="fa-solid fa-expand"></i>
+              View in Full
+          </button>
+        </div>  
       </div>
 
     </div>
@@ -1117,7 +1293,7 @@
 
     <!-- ── PACKAGES TAB ── -->
     <div id="tab-packages" class="tab-pane" role="tabpanel">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;align-items:start">
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem;align-items:start">
 
         <!-- BASIC -->
         <article class="card reveal d1" style="padding:1.75rem;display:flex;flex-direction:column">
@@ -1232,7 +1408,7 @@
 
     <!-- ── SINGLE SERVICES TAB ── -->
     <div id="tab-single" class="tab-pane" style="display:none" role="tabpanel">
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem">
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem">
 
         <!-- BRANDING -->
         <article class="card reveal d1" style="padding:1.75rem">
@@ -1999,6 +2175,41 @@
   </div>
 </div>
 
+<!-- ======================================
+     BEFORE & AFTER LIGHTBOX
+====================================== -->
+<div id="ba-lightbox">
+  <div id="ba-lightbox-backdrop"></div>
+  <div id="ba-lightbox-content">
+    <button id="ba-lightbox-close">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div id="ba-lightbox-caption">
+      <div id="ba-lightbox-title"></div>
+      <div id="ba-lightbox-tag"></div>
+    </div>
+    <div class="ba-card ba-lightbox-card">
+      <span class="ba-spacer"></span>
+      <div class="ba-before">
+        <img id="ba-before-img">
+      </div>
+      <div class="ba-after">
+        <img id="ba-after-img">
+      </div>
+      <span class="ba-label ba-label-before">
+        Before
+      </span>
+      <span class="ba-label ba-label-after">
+        After
+      </span>
+      <div class="ba-divider">
+        <div class="ba-handle">
+          <i class="fa-solid fa-arrows-left-right"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════
      JAVASCRIPT
@@ -2007,9 +2218,15 @@
   /* Two-column responsive grids */
   @media(min-width:1024px){
     .lg\:grid-cols-2-custom { display:grid!important; grid-template-columns:1fr 1fr!important; }
+    .ba-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
   }
   @media(max-width:640px){
     .sm\:grid-cols-2-form { grid-template-columns:1fr!important; }
+    .ba-grid{
+      grid-template-columns:1fr;
+    }
   }
 </style>
 
@@ -2124,6 +2341,95 @@ window.addEventListener('load', () => {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 })();
 
+/* =====================================
+   BEFORE & AFTER LIGHTBOX
+===================================== */
+
+(function(){
+  const modal=document.getElementById("ba-lightbox");
+  const close=document.getElementById("ba-lightbox-close");
+  const before=document.getElementById("ba-before-img");
+  const after=document.getElementById("ba-after-img");
+  const title=document.getElementById("ba-lightbox-title");
+  const category=document.getElementById("ba-lightbox-tag");
+
+  function initialiseBeforeAfter(card){
+    let dragging=false;
+
+    function update(clientX){
+      const rect=card.getBoundingClientRect();
+      let pct=((clientX-rect.left)/rect.width)*100;
+      pct=Math.max(2,Math.min(98,pct));
+      card.style.setProperty("--ba-pct",pct);
+      card.classList.add("touched");
+    }
+
+    card.addEventListener("pointerdown",(e)=>{
+      dragging=true;
+      card.classList.add("dragging");
+      card.setPointerCapture(e.pointerId);
+      update(e.clientX);
+    });
+
+    card.addEventListener("pointermove",(e)=>{
+      if(!dragging) return;
+      update(e.clientX);
+    });
+
+    card.addEventListener("pointerup",()=>{
+      dragging=false;
+      card.classList.remove("dragging");
+    });
+
+    card.addEventListener("pointercancel",()=>{
+      dragging=false;
+      card.classList.remove("dragging");
+    });
+  }
+
+  document.querySelectorAll(".ba-card").forEach(initialiseBeforeAfter);
+
+  const fullscreenSlider = document.querySelector(".ba-lightbox-card");
+
+  if(fullscreenSlider){
+    initialiseBeforeAfter(fullscreenSlider);
+  }
+
+  document.querySelectorAll(".ba-wrapper").forEach(wrapper=>{
+
+    const card = wrapper.querySelector(".ba-card");
+    const btn  = wrapper.querySelector(".ba-view-full");
+
+    if(!card || !btn) return;
+
+    btn.addEventListener("click",()=>{
+      before.src = card.dataset.before;
+      after.src  = card.dataset.after;
+      title.textContent    = card.dataset.title;
+      category.textContent = card.dataset.category;
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      const slider = document.querySelector(".ba-lightbox-card");
+      slider.style.setProperty("--ba-pct",50);
+    });
+  });
+
+  function closeModal(){
+    modal.classList.remove("open");
+    document.body.style.overflow="";
+  }
+
+  close.addEventListener("click",closeModal);
+
+  document.getElementById("ba-lightbox-backdrop").addEventListener("click",closeModal);
+
+  document.addEventListener("keydown",(e)=>{
+    if(e.key==="Escape"){
+      closeModal();
+    }
+  });
+})();
+
 /* ─────────────────────────────────────────────
    NAVBAR SCROLL + BACK TO TOP
 ───────────────────────────────────────────── */
@@ -2235,99 +2541,46 @@ document.querySelectorAll('.faq-q').forEach(btn => {
 /* ─────────────────────────────────────────────
    BEFORE & AFTER SLIDERS
 ───────────────────────────────────────────── */
-(function() {
-  document.querySelectorAll('.ba-card').forEach(card => {
-    const handle = card.querySelector('.ba-handle');
 
-    /* Single function — sets CSS variable which drives BOTH clip-path and divider */
-    function setPos(clientX) {
-      const rect = card.getBoundingClientRect();
-      let pct    = ((clientX - rect.left) / rect.width) * 100;
-      pct        = Math.max(2, Math.min(98, pct));
-      card.style.setProperty('--ba-pct', pct);
-      card.classList.add('touched');
+(function () {
+
+  function initialiseBeforeAfter(card){
+
+    let dragging=false;
+
+    function update(clientX){
+      const rect=card.getBoundingClientRect();
+      let pct=((clientX-rect.left)/rect.width)*100;
+      pct=Math.max(2,Math.min(98,pct));
+      card.style.setProperty("--ba-pct",pct);
+      card.classList.add("touched");
     }
 
-    /* ── Pointer capture ─────────────────────────────────────────────────
-       setPointerCapture is the correct API for drag interactions.
-       It locks ALL pointer events to the handle even when the mouse
-       moves outside it, so the divider tracks the cursor perfectly.
-       Works for both mouse AND touch with one unified API.
-    ────────────────────────────────────────────────────────────────────── */
-    handle.addEventListener('pointerdown', e => {
-      handle.setPointerCapture(e.pointerId);
-      card.classList.add('dragging');
-      document.body.style.cursor = 'col-resize';
-      e.preventDefault();
+    card.addEventListener("pointerdown",(e)=>{
+      dragging=true;
+      card.classList.add("dragging");
+      card.setPointerCapture(e.pointerId);
+      update(e.clientX);
     });
 
-    handle.addEventListener('pointermove', e => {
-      if (!handle.hasPointerCapture(e.pointerId)) return;
-      setPos(e.clientX);
+    card.addEventListener("pointermove",(e)=>{
+      if(!dragging) return;
+      update(e.clientX);
     });
 
-    handle.addEventListener('pointerup', e => {
-      if (!handle.hasPointerCapture(e.pointerId)) return;
-      handle.releasePointerCapture(e.pointerId);
-      card.classList.remove('dragging');
-      document.body.style.cursor = '';
+    card.addEventListener("pointerup",()=>{
+      dragging=false;
+      card.classList.remove("dragging");
     });
 
-    /* Safety net in case pointer capture is lost unexpectedly */
-    handle.addEventListener('lostpointercapture', () => {
-      card.classList.remove('dragging');
-      document.body.style.cursor = '';
+    card.addEventListener("pointercancel",()=>{
+      dragging=false;
+      card.classList.remove("dragging");
     });
+  }
 
-    /* Click anywhere on card body also jumps the divider instantly */
-    card.addEventListener('click', e => {
-      if (handle.contains(e.target)) return;
-      setPos(e.clientX);
-    });
+  document.querySelectorAll(".ba-card").forEach(initialiseBeforeAfter);
 
-    /* ── JS hint animation ────────────────────────────────────────────────
-       Replaces the old CSS animation which was freezing the divider.
-       Uses requestAnimationFrame so it never conflicts with JS-set values.
-    ────────────────────────────────────────────────────────────────────── */
-    const io = new IntersectionObserver(entries => {
-      if (!entries[0].isIntersecting || card.classList.contains('touched')) return;
-
-      let startTime = null;
-      const duration = 1000;
-
-      function easeInOut(x) {
-        return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
-      }
-
-      function animate(ts) {
-        if (card.classList.contains('touched')) {
-          card.style.setProperty('--ba-pct', 50);
-          return;
-        }
-        if (!startTime) startTime = ts;
-        const t = Math.min((ts - startTime) / duration, 1);
-
-        let pct;
-        if      (t < 0.35) pct = 50 - 15 * easeInOut(t / 0.35);
-        else if (t < 0.65) pct = 35 + 15 * easeInOut((t - 0.35) / 0.30);
-        else if (t < 0.82) pct = 50 -  8 * easeInOut((t - 0.65) / 0.17);
-        else               pct = 42 +  8 * easeInOut((t - 0.82) / 0.18);
-
-        card.style.setProperty('--ba-pct', pct);
-
-        if (t < 1) requestAnimationFrame(animate);
-        else card.style.setProperty('--ba-pct', 50);
-      }
-
-      setTimeout(() => {
-        if (!card.classList.contains('touched')) requestAnimationFrame(animate);
-      }, 700);
-
-      io.disconnect();
-    }, { threshold: 0.5 });
-
-    io.observe(card);
-  });
 })();
 
 /* ─────────────────────────────────────────────
